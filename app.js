@@ -4,25 +4,23 @@ var searchPerson;
 $(document).ready(function(){
 	console.log("in the document ready!");
 
-	$("body").on('click', '.submitButton', function(){
+	$("body").on('click', '.submitButton', function(event){
+			event.preventDefault();
 			searchPerson = $('#searchInput').val();
 			console.log($('#searchInput'));
 			console.log("SearchPerson"+searchPerson);
 			search(searchPerson);
-		// Start the search here!
 		});
-	
+
 });//end document ready
 
 function callback(data){
 	console.log(data.name);
-	//for(var i=0; i<results.length; i++){
 		$("#results").html("");
 		$("#results").append("<img src='"+data.avatar_url+"' />");
 		$("#results").append("<span class='stuff'>User Login: "+data.login+"</span>");
 		$("#results").append("<span class='stuff'>Link to Github Page: <a href='"+data.html_url+"'target='blank'>"+data.html_url+"</a></span>");
 		$("#results").append("<span class='stuff'>Bio Information: "+data.bio+"</span>");
-	//}
 }
 
 function search(query){
