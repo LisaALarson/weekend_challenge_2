@@ -1,5 +1,5 @@
 console.log('js file works');
-var searchPerson;
+var searchPerson = encodeURI($('#searchInput').val());
 
 $(document).ready(function(){
 	console.log("in the document ready!");
@@ -21,6 +21,7 @@ function callback(data){
 		$("#results").append("<span class='stuff'>User Login: "+data.login+"</span>");
 		$("#results").append("<span class='stuff'>Link to Github Page: <a href='"+data.html_url+"'target='blank'>"+data.html_url+"</a></span>");
 		$("#results").append("<span class='stuff'>Bio Information: "+data.bio+"</span>");
+		$("#results").append("<br>Link to Github Repos: <a href='https:github.com/"+data.login+"?tab=repositories' target='blank'>repositories</a>");
 }
 
 function search(query){
@@ -33,6 +34,12 @@ function search(query){
 			console.log("in the success!");
 			console.log(data);
 			callback(data);
+		},
+		error: function(){
+			$("#results").append("User not found.");
+		},
+		complete: function(){
+			console.log("ajax complete!");
 		}
 	});
 }
